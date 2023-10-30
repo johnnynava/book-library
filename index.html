@@ -22,7 +22,18 @@
           <label for="author_name">Author</label>
           <input type="text" id="author_name">
         </div>
-        <!-- pages and then status and then submit button -->
+        <div class="inputField">
+          <label for="pages">Pages</label>
+          <input type="tel" id="pages" maxlength="4">
+        </div>
+        <div class="inputField">
+          <label for="status">Status</label>
+          <select name="status" id="status">
+            <option value="notRead">Not read</option>
+            <option value="read">Read</option>
+          </select>
+        </div>
+        <button type="submit">Add book</button>
       </form>
       <!-- tablex -->
     </div>
