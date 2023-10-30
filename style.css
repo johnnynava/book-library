@@ -70,7 +70,7 @@ form {
     "submit submit submit submit"
 }
 
-button[type="submit"] {
+button{
   grid-area: submit;
   justify-self: center;
   background-color: gray;
@@ -81,6 +81,6 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+button:hover {
   color: rgb(86, 171, 143);
 }

@@ -1,3 +1,10 @@
+const dialog = document.querySelector("dialog");
+const showButton = document.querySelector("dialog + button")
+
+showButton.addEventListener("click", () => {
+    dialog.showModal();
+})
+
 //library
 let myLibrary = [];
 
