@@ -28,6 +28,7 @@ myLibrary.forEach((book) => {
     newArray.forEach((value) => {
         if(value === "Read" || value === "Not read"){
             const button = document.createElement("button");
+            button.classList.add("status");
             button.textContent = value;
             let newCell = row.insertCell();
             newCell.appendChild(button);
@@ -44,7 +45,16 @@ myLibrary.forEach((book) => {
     removeCell.appendChild(remove);
 });
 
+const statusButton = document.querySelectorAll("button.status")
 
+statusButton.forEach(button => button.addEventListener("click", (e) => {
+    if (e.target.textContent === "Read"){
+        e.target.textContent = "Not read";
+    }
+    else {
+        e.target.textContent = "Read";
+    };
+}));
 
 //constructor for books
 function book(title, author, pages, read) {
