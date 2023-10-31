@@ -22,7 +22,7 @@ let myLibrary = [
 ];
 
 //loops the library to add new rows to the table
-myLibrary.forEach((book) => {
+myLibrary.forEach(looperino = (book) => {
     const row = table.insertRow();
     let newArray = Object.values(book);
     newArray.forEach((value) => {
@@ -49,11 +49,15 @@ const statusButton = document.querySelectorAll("button.status")
 
 statusButton.forEach(button => button.addEventListener("click", (e) => {
     if (e.target.textContent === "Read"){
-        e.target.textContent = "Not read";
+        object = myLibrary[e.target.parentElement.parentElement.rowIndex-1];
+        object.read= "Not read";
+        e.target.textContent = "Not Read";
     }
     else {
+        object = myLibrary[e.target.parentElement.parentElement.rowIndex-1];
+        object.read= "Read";
         e.target.textContent = "Read";
-    };
+    }
 }));
 
 //constructor for books
