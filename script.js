@@ -22,8 +22,9 @@ let myLibrary = [
 ];
 
 //loops the library to add new rows to the table
-myLibrary.forEach(looperino = (book) => {
+const loopBooks = function(book){
     const row = table.insertRow();
+    row.classList.add("bookRow");
     let newArray = Object.values(book);
     newArray.forEach((value) => {
         if(value === "Read" || value === "Not read"){
@@ -43,21 +44,47 @@ myLibrary.forEach(looperino = (book) => {
     remove.textContent = "remove";
     let removeCell = row.insertCell();
     removeCell.appendChild(remove);
-});
+};
 
-const statusButton = document.querySelectorAll("button.status")
+myLibrary.forEach(loopBooks);
+
+//refresh table
+const deleteTable = () => {
+    const tableRows = document.querySelectorAll("tr.bookRow");
+    tableRows.forEach((row) => row.remove());
+}
+
+// const refreshTable = function)
+
+
+//toggle status for book section
+let statusButton = document.querySelectorAll("button.status");
+
 
 statusButton.forEach(button => button.addEventListener("click", (e) => {
     if (e.target.textContent === "Read"){
         object = myLibrary[e.target.parentElement.parentElement.rowIndex-1];
         object.read= "Not read";
-        e.target.textContent = "Not Read";
+        deleteTable();
+        myLibrary.forEach(loopBooks);
+        statusButton = document.querySelectorAll("button.status");
     }
     else {
         object = myLibrary[e.target.parentElement.parentElement.rowIndex-1];
         object.read= "Read";
-        e.target.textContent = "Read";
+        deleteTable();
+        myLibrary.forEach(loopBooks);
+        statusButton = document.querySelectorAll("button.status");
     }
+}));
+
+//remove book
+let removeButton = document.querySelectorAll("button.remove");
+removeButton.forEach(button => button.addEventListener("click", (e) => {
+    myLibrary.splice(e.target.parentElement.parentElement.rowIndex-1, 1);
+    deleteTable();
+    myLibrary.forEach(loopBooks);
+    removeButton = document.querySelectorAll("button.remove");
 }));
 
 //constructor for books
@@ -69,16 +96,12 @@ function book(title, author, pages, read) {
     this.info = function() {
         return title+" by "+author+", "+pages+", "+read;
     };
-}
+};
 
 //function to add books to the library
 function addBookToLibrary() {
 
 }
-
-const displayBook = () => {
-    
-} 
 
 // const doom = new book("doombook", "doomguy", "doompages", "not read");
 // console.log(doom.info());
