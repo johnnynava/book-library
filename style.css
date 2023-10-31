@@ -29,7 +29,7 @@ body {
 
 .gridContainer {
   display: grid;
-  grid-template-rows: 150px 1fr 100px;
+  grid-template-rows: 150px 1fr 50px;
 }
 
 .header {
@@ -51,7 +51,8 @@ body {
 }
 
 .content {
-  padding: 20px;
+  display: grid;
+  grid-template-rows: 50px 1fr;
 }
 
 .inputField {
@@ -62,7 +63,7 @@ body {
 
 form {
   display: grid;
-  grid-template-columns: repeat(2, 1fr) repeat(2, 150px);
+  grid-template-columns: 1fr 1fr 150px 70px;
   grid-template-rows: 2fr 1fr;
   gap: 15px;
   grid-template-areas:
@@ -70,17 +71,53 @@ form {
     "submit submit submit submit"
 }
 
-button{
+button[type="submit"]{
   grid-area: submit;
   justify-self: center;
-  background-color: gray;
   border-style: none;
   border-radius: 7px;
-  color: white;
   font-size: 20px;
   cursor: pointer;
 }
 
+button {
+  border-style: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 7px;
+}
+
+dialog+button{
+  font-size: 20px;
+}
+
 button:hover {
   color: rgb(86, 171, 143);
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+}
+
+tr {
+  border-bottom: 1px dotted black;
+}
+
+tr#firstRow {
+  border-bottom: 0px;
+  background-color: #EFEFEF;
+  border-top: 1px dotted black;
+}
+
+#remove {
+  background-color: red;
+  color: white;
+}
+
+#remove:hover {
+  background-color: darkred;
 }
