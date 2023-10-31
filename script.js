@@ -99,9 +99,19 @@ function book(title, author, pages, read) {
 };
 
 //function to add books to the library
-function addBookToLibrary() {
 
-}
+let submitButton = document.querySelector('button[type="submit"]');
+
+submitButton.addEventListener("click", (e) => {
+    e.preventDefault(); //need this to prevent the default behavior of submit (I don't have a server setup)
+    console.log(dialog.target[0].value);
+    // title = dialog.target[0].value;
+    // author = dialog.target[1].value;
+    // pages = dialog.target[2].value;
+    // read = dialog.target[3].value;
+    // const newBook = new book(title, author, pages, read);
+    // console.log(newBook);
+})
 
 // const doom = new book("doombook", "doomguy", "doompages", "not read");
 // console.log(doom.info());
