@@ -20,14 +20,42 @@ let myLibrary = [
         "author": "Charles Baudelaire",
         "pages": 464,
         "read": "Read",
+        "id": 1,
     },
     {
         "title": "The Bible",
         "author": "Various Authors",
         "pages": 1408,
         "read": "Not read",
+        "id": 2,
     },
 ];
+
+//remove book
+const removeBook = function(id){
+    myLibrary.splice(myLibrary.findIndex((book) => book.id === id), 1);
+    deleteTable();
+    pagesRead();
+    myLibrary.forEach(loopBooks);
+}
+
+//toggle status
+const toggleStatus = (id) => {
+    let bookIndex = myLibrary.findIndex((book)=> book.id === id);
+    if (myLibrary[bookIndex].read === "Read"){
+        myLibrary[bookIndex].read = "Not read";
+        deleteTable();
+        myLibrary.forEach(loopBooks);
+        statusButton = document.querySelectorAll("button.status");
+    }
+    else {
+        myLibrary[bookIndex].read = "Read";
+        deleteTable();
+        myLibrary.forEach(loopBooks);
+        statusButton = document.querySelectorAll("button.status");
+    }
+    pagesRead();
+}
 
 //display number of pages read
 const pagesRead = () => {
@@ -54,13 +82,17 @@ const loopBooks = function(book){
             button.textContent = value;
             let newCell = row.insertCell();
             newCell.appendChild(button);
+            //toggle status for book section
+            button.addEventListener("click", (e) => toggleStatus(book.id));
         }
+        else if(value === newArray[4]){}
         else {
         let newCell = row.insertCell();
         newCell.textContent = value;
         } 
     });
     const remove = document.createElement("button");
+    remove.addEventListener("click", () => removeBook(book.id));
     remove.classList.add("remove");
     remove.textContent = "remove";
     let removeCell = row.insertCell();
@@ -90,25 +122,13 @@ statusButton.forEach(button => button.addEventListener("click", (e) => {
     pagesRead();
 }));
 
-//remove book
-let removeButton = document.querySelectorAll("button.remove");
-
-const removeBook = function(e){
-    myLibrary.splice(e.target.parentElement.parentElement.rowIndex-1, 1);
-    deleteTable();
-    pagesRead();
-    myLibrary.forEach(loopBooks);
-    removeButton = document.querySelectorAll("button.remove");
-}
-
-removeButton.forEach(button => button.addEventListener("click", removeBook));
-
 //constructor for books
 function book(title, author, pages, read) {
     this.title = title,
     this.author = author,
     this.pages = pages,
-    this.read = read
+    this.read = read,
+    this.id = Math.floor(Math.random()*100000)
 };
 
 //function to add books to the library
