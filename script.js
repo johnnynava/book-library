@@ -1,6 +1,7 @@
 const dialog = document.querySelector("dialog");
 const showButton = document.querySelector("dialog + button");
 const table = document.querySelector("table");
+const footer = document.querySelector(".footer p");
 
 showButton.addEventListener("click", () => {
     dialog.showModal();
@@ -10,13 +11,13 @@ let myLibrary = [
     {
         "title": "The Flowers of Evil",
         "author": "Charles Baudelaire",
-        "pages": "464",
+        "pages": 464,
         "read": "Read",
     },
     {
         "title": "The Bible",
         "author": "Various Authors",
-        "pages": "1408",
+        "pages": 1408,
         "read": "Not read",
     },
 ];
@@ -48,6 +49,19 @@ const loopBooks = function(book){
 
 myLibrary.forEach(loopBooks);
 
+const pagesRead = () => {
+    let pagesSum = 0;
+    for(let i=0; i<myLibrary.length; i++){
+        if(myLibrary[i].read === "Read"){
+            pagesSum += myLibrary[i].pages;
+        }
+    }
+    footer.textContent = `Pages read: ${pagesSum}`;
+}
+
+pagesRead();
+
+
 //refresh table
 const deleteTable = () => {
     const tableRows = document.querySelectorAll("tr.bookRow");
@@ -76,6 +90,7 @@ statusButton.forEach(button => button.addEventListener("click", (e) => {
         myLibrary.forEach(loopBooks);
         statusButton = document.querySelectorAll("button.status");
     }
+    pagesRead();
 }));
 
 //remove book
@@ -85,6 +100,7 @@ removeButton.forEach(button => button.addEventListener("click", (e) => {
     deleteTable();
     myLibrary.forEach(loopBooks);
     removeButton = document.querySelectorAll("button.remove");
+    pagesRead();
 }));
 
 //constructor for books
@@ -93,25 +109,27 @@ function book(title, author, pages, read) {
     this.author = author,
     this.pages = pages,
     this.read = read
-    this.info = function() {
-        return title+" by "+author+", "+pages+", "+read;
-    };
 };
 
 //function to add books to the library
-
 let submitButton = document.querySelector('button[type="submit"]');
 
 submitButton.addEventListener("click", (e) => {
     e.preventDefault(); //need this to prevent the default behavior of submit (I don't have a server setup)
-    console.log(dialog.target[0].value);
-    // title = dialog.target[0].value;
-    // author = dialog.target[1].value;
-    // pages = dialog.target[2].value;
-    // read = dialog.target[3].value;
-    // const newBook = new book(title, author, pages, read);
-    // console.log(newBook);
-})
+    let title = document.querySelector("input#book_name").value;
+    let author = document.querySelector("input#author_name").value;
+    let pages = +document.querySelector("input#pages").value;
+    let read = document.querySelector("select#status").value;
+    let form = document.querySelector("form");
+    let newBook = new book(title, author, pages, read);
+    myLibrary.push(newBook);
+    console.log(myLibrary);
+    deleteTable();
+    myLibrary.forEach(loopBooks);
+    pagesRead();
+    dialog.close();
+    form.reset();
+});
 
 // const doom = new book("doombook", "doomguy", "doompages", "not read");
 // console.log(doom.info());
