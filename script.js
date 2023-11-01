@@ -7,6 +7,13 @@ showButton.addEventListener("click", () => {
     dialog.showModal();
 })
 
+//refresh table
+const deleteTable = () => {
+    const tableRows = document.querySelectorAll("tr.bookRow");
+    tableRows.forEach((row) => row.remove());
+}
+
+//library array
 let myLibrary = [
     {
         "title": "The Flowers of Evil",
@@ -21,6 +28,19 @@ let myLibrary = [
         "read": "Not read",
     },
 ];
+
+//display number of pages read
+const pagesRead = () => {
+    let pagesSum = 0;
+    for(let i=0; i<myLibrary.length; i++){
+        if(myLibrary[i].read === "Read"){
+            pagesSum += myLibrary[i].pages;
+        }
+    }
+    footer.textContent = `Pages read: ${pagesSum}`;
+}
+
+pagesRead();
 
 //loops the library to add new rows to the table
 const loopBooks = function(book){
@@ -49,31 +69,8 @@ const loopBooks = function(book){
 
 myLibrary.forEach(loopBooks);
 
-const pagesRead = () => {
-    let pagesSum = 0;
-    for(let i=0; i<myLibrary.length; i++){
-        if(myLibrary[i].read === "Read"){
-            pagesSum += myLibrary[i].pages;
-        }
-    }
-    footer.textContent = `Pages read: ${pagesSum}`;
-}
-
-pagesRead();
-
-
-//refresh table
-const deleteTable = () => {
-    const tableRows = document.querySelectorAll("tr.bookRow");
-    tableRows.forEach((row) => row.remove());
-}
-
-// const refreshTable = function)
-
-
 //toggle status for book section
 let statusButton = document.querySelectorAll("button.status");
-
 
 statusButton.forEach(button => button.addEventListener("click", (e) => {
     if (e.target.textContent === "Read"){
@@ -95,13 +92,16 @@ statusButton.forEach(button => button.addEventListener("click", (e) => {
 
 //remove book
 let removeButton = document.querySelectorAll("button.remove");
-removeButton.forEach(button => button.addEventListener("click", (e) => {
+
+const removeBook = function(e){
     myLibrary.splice(e.target.parentElement.parentElement.rowIndex-1, 1);
     deleteTable();
+    pagesRead();
     myLibrary.forEach(loopBooks);
     removeButton = document.querySelectorAll("button.remove");
-    pagesRead();
-}));
+}
+
+removeButton.forEach(button => button.addEventListener("click", removeBook));
 
 //constructor for books
 function book(title, author, pages, read) {
@@ -126,10 +126,8 @@ submitButton.addEventListener("click", (e) => {
     console.log(myLibrary);
     deleteTable();
     myLibrary.forEach(loopBooks);
-    pagesRead();
+    removeButton = document.querySelectorAll("button.remove");
     dialog.close();
     form.reset();
+    pagesRead();
 });
-
-// const doom = new book("doombook", "doomguy", "doompages", "not read");
-// console.log(doom.info());
