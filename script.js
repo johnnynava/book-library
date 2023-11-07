@@ -123,13 +123,15 @@ statusButton.forEach(button => button.addEventListener("click", (e) => {
 }));
 
 //constructor for books
-function book(title, author, pages, read) {
-    this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.read = read,
-    this.id = Math.floor(Math.random()*100000)
-};
+class book {
+    constructor(title, author, pages, read){
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.read = read;
+        this.id = Math.floor(Math.random()*100000);
+    }
+}
 
 //function to add books to the library
 let submitButton = document.querySelector('button[type="submit"]');
@@ -143,7 +145,6 @@ submitButton.addEventListener("click", (e) => {
     let form = document.querySelector("form");
     let newBook = new book(title, author, pages, read);
     myLibrary.push(newBook);
-    console.log(myLibrary);
     deleteTable();
     myLibrary.forEach(loopBooks);
     removeButton = document.querySelectorAll("button.remove");
