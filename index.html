@@ -17,15 +17,15 @@
         <form action="#" method="post">
           <div class="inputField">
             <label for="book_name">Title</label>
-            <input type="text" id="book_name">
+            <input type="text" id="book_name" required>
           </div>
           <div class="inputField">
             <label for="author_name">Author</label>
-            <input type="text" id="author_name">
+            <input type="text" id="author_name" required>
           </div>
           <div class="inputField">
             <label for="pages">Pages</label>
-            <input type="tel" id="pages" maxlength="4">
+            <input type="tel" id="pages" minlength="1" maxlength="4" pattern="^\d+$" required>
           </div>
           <div class="inputField">
             <label for="status">Status</label>

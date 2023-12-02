@@ -95,6 +95,15 @@ button:hover {
   color: rgb(86, 171, 143);
 }
 
+input{
+  border-radius: 10px;
+  border: 2px solid black;
+}
+
+input:valid{
+  border: 2px solid green;
+}
+
 table {
   border-collapse: collapse;
 }
